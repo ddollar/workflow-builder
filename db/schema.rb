@@ -11,12 +11,27 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120823151747) do
+ActiveRecord::Schema.define(:version => 20120823205317) do
+
+  create_table "steps", :force => true do |t|
+    t.integer  "num"
+    t.string   "type"
+    t.text     "args_raw"
+    t.integer  "workflow_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "triggers", :force => true do |t|
+    t.integer  "num"
+    t.string   "type"
+    t.text     "args_raw"
+    t.integer  "workflow_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "users", :force => true do |t|
-    t.string   "name"
-    t.string   "email"
-    t.string   "provider"
     t.string   "uid"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
@@ -24,11 +39,9 @@ ActiveRecord::Schema.define(:version => 20120823151747) do
 
   create_table "workflows", :force => true do |t|
     t.string   "name"
-    t.string   "trigger"
-    t.text     "trigger_args"
     t.integer  "user_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
 end

@@ -1,3 +1,16 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+$(window).ready ->
+
+  update_trigger = ->
+    $(".trigger-type").hide()
+    $(".trigger-type-#{this.value}").show()
+
+  $(".trigger-type-chooser").on "change", update_trigger
+  $(".trigger-type-chooser").each update_trigger
+
+  update_step = ->
+    num = $(this).data("step")
+    $(".step#{num}-type").hide()
+    $("#step#{num}-type-#{this.value}").show()
+
+  $(".step-type-chooser").on "change", update_step
+  $(".step-type-chooser").each update_step

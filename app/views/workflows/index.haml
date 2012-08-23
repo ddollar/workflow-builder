@@ -1,16 +1,21 @@
-%table.table.table-bordered.table-hover
-  %thead
-    %tr.button
-      %th.text.max    Workflow Name
-      %th.text.nowrap Last Run
-      %th.text.nowrap Duration
-      %th.text.nowrap Status
-      %th.right.nowrap
-        %a.btn.btn-success{:href => "/workflows/new"} New Workflow
-  %tbody
-    - for workflow in @workflows
-      %tr
-        %th= workflow.name
-        %th= # workflow.last_run.created_at
-        %th= # workflow.last_run.duration
-        %th= # workflow.last_run.status
+.well
+  %h2
+    Workflows
+    .right
+      %a.btn.btn-success{:href => "/workflows/new"} New Workflow
+
+  %table.table
+    %thead
+      %tr.button
+        %th.text.max    Workflow Name
+        %th.text.nowrap Last Run
+        %th.text.nowrap Duration
+        %th.text.nowrap Status
+    %tbody
+      %tr.success
+        %td.text.max
+          %a{:href => "/workflows/1"} Workflow App to Production
+        %td.text.nowrap 10 minutes ago
+        %td.text.nowrap 2m45s
+        %td.text.nowrap Success
+

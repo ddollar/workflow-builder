@@ -13,7 +13,7 @@
 */
 
 table.table tr {
-  th.text {
+  .text {
     padding: 12px 18px;
   }
   .right {
@@ -25,6 +25,14 @@ table.table tr {
   .nowrap {
     white-space: nowrap;
   }
+}
+
+table.table tr.success td {
+  background-color: #dff0d8;
+}
+
+table.table tr.failure td {
+  background-color: #f2d3d3
 }
 
 .right {
@@ -50,6 +58,17 @@ label.emphasis {
   padding-top: 5px;
 }
 
+.well h2 {
+  border-radius: 6px 6px 0px 0px;
+  margin: -20px;
+  margin-bottom: 20px;
+  background-color: #ccc;
+  padding: 6px 18px;
+  .right {
+    margin-top: -2px;
+  }
+}
+
 .well h3 {
   border-radius: 6px 6px 0px 0px;
   margin: -20px;
@@ -72,12 +91,16 @@ label.emphasis {
 
 .num {
   float: left;
+  font-size: 1.2em;
   font-weight: bold;
-  padding: 6px 9px 4px 9px;
+  padding: 6px 9px;
+  padding-left: 11px;
+  background-color: #333;
+  color: #fff;
   height: 18px;
-  border-radius: 4px;
-  margin-top: 3px;
-  margin-right: 6px;
+  width: 11px;
+  border-radius: 18px;
+  margin-right: 10px;
 }
 
 .well hr {
@@ -85,30 +108,37 @@ label.emphasis {
 }
 
 .inline {
-  label {
-    font-weight: bold;
-    margin-top: 4px;
-    margin-right: 6px;
-    float: left;
+  * {
+    float: left
   }
-  input, select {
+  input {
+    margin-top: 1px;
     margin-right: 12px;
-    float: left;
   }
-  textarea {
-    width: 800px;
-    height: 100px;
-    background-color: #000;
-    color: #fff;
-    font-family: monospace;
+
+  .text {
+    margin-top: 4px;
+    margin-right: 12px;
+  }
+
+  &:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
   }
 }
 
-.inline:after {
-  content: ".";
-  display: block;
-  clear: both;
-  visibility: hidden;
-  line-height: 0;
-  height: 0;
+.trigger-type-chooser {
+  margin-right: 12px;
+}
+
+.step {
+  margin-bottom: 0px;
+
+  .step-type-chooser {
+    margin-right: 12px;
+  }
 }
