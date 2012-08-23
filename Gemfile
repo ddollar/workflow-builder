@@ -14,6 +14,7 @@ group :development, :test do
 end
 
 gem "bootstrap-sass"
+gem "font-awesome-sass-rails"
 gem "haml"
 gem "haml-rails"
 gem "jquery-rails"

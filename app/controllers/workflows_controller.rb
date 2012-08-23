@@ -15,6 +15,8 @@ class WorkflowsController < ApplicationController
   def show
     workflow = current_user.workflows.new(:name => "Workflow App to Production")
 
+    workflow.trigger = Trigger.new(:type => "github", :args => { :repository => "ddollar/workflow", :branch => "master" })
+
     workflow.steps << Step.new(:num => 1, :type => "heroku-release", :args => { :app => "wf-staging" })
     workflow.steps << Step.new(:num => 2, :type => "heroku-run", :args => { :app => "wf-staging", :command => "bundle exec rake db:migrate" })
     workflow.steps << Step.new(:num => 3, :type => "heroku-run", :args => { :app => "wf-staging", :command => "bundle exec rake spec" })

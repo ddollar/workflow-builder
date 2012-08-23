@@ -4,6 +4,11 @@ class Trigger < ActiveRecord::Base
     "github" => "Github",
     "heroku" => "Heroku"
   }
+  
+  TYPE_ICONS = {
+    "github" => "icon-github",
+    "heroku" => "icon-sign-blank"
+  }
 
   attr_accessible :args
   attr_accessible :num
