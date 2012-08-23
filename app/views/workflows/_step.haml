@@ -1,0 +1,35 @@
+%ul.nav.nav-tabs
+  %li.num= "Step #{num}"
+  %li.active
+    %a{"data-toggle" => "tab", :href => "#step#{num}-heroku-release"} Heroku Release
+  %li
+    %a{"data-toggle" => "tab", :href => "#step#{num}-heroku-run"} Heroku Run
+  %li
+    %a{"data-toggle" => "tab", :href => "#step#{num}-check-http"} HTTP Check
+  %li
+    %a{"data-toggle" => "tab", :href => "#step#{num}-custom-script"} Custom Script
+
+.tab-content
+  .tab-pane.active{:id => "step#{num}-heroku-release"}
+    .inline
+      %label App:
+      %select
+  .tab-pane{:id => "step#{num}-heroku-run"}
+    .inline
+      %label App:
+      %select
+      %label Command:
+      %input.input-xxlarge
+  .tab-pane{:id => "step#{num}-check-http"}
+    .inline
+      %label URL:
+      %input.input-xlarge
+      %label Status Code:
+      %input.input-mini
+      %label Content:
+      %input.input-xlarge
+  .tab-pane{:id => "step#{num}-custom-script"}
+    .inline
+      %textarea
+
+%hr

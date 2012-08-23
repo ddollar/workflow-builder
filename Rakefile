@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Workflow::Application.load_tasks
+WorkflowBuilder::Application.load_tasks
