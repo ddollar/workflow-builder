@@ -1,0 +1,33 @@
+%form.form-horizontal
+
+  .well
+    %h2
+      Workflow
+      .right
+        %a.btn.btn-danger{:href => root_path} Discard Changes
+        %button.btn.btn-success{:type => "submit"} Save Changes
+    .inline
+      %label.emphasis Name
+      %input.input-xxlarge{:type => "text", :id => "name", :placeholder => "Workflow Name", :value => workflow.name}
+
+  .well
+    %h3 When
+    .trigger.inline
+      %select{:id => "trigger-type", :class => "trigger-type-chooser"}
+        - Trigger::TYPES.each do |type, label|
+          %option{:value => type, :selected => (workflow.trigger.try(:type) == type)}
+            != "<i class='#{Trigger::TYPE_ICONS[type]}'/>"
+            = label
+      - Trigger::TYPES.each do |type, label|
+        - args = (workflow.trigger.try(:type) == type) ? workflow.trigger.try(:args) : {}
+        .inline
+          .trigger-type{:class => "trigger-type-#{type}"}= render "trigger_#{type}", :args => args
+
+  .well
+    %h3 Run These Steps
+    - workflow.steps.each do |step|
+      = render "step", :step => step
+
+
+    %button.btn.btn-success Add Step
+

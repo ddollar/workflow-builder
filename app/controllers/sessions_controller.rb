@@ -8,6 +8,7 @@ class SessionsController < ApplicationController
     auth = request.env["omniauth.auth"]
     user = User.where(:uid => auth["uid"]).first || User.create!(:uid => auth["uid"])
     session[:user_id] = user.id
+    session[:email] = auth["info"]["email"]
 
     redirect_to "/"
   end

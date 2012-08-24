@@ -11,6 +11,7 @@
         %th.text.nowrap Last Run
         %th.text.nowrap Duration
         %th.text.nowrap Status
+        %th
     %tbody
       %tr.success
         %td.text.max
@@ -18,4 +19,6 @@
         %td.text.nowrap 10 minutes ago
         %td.text.nowrap 2m45s
         %td.text.nowrap Success
+        %td.nowrap
+          %a.btn.btn-primary{:href => "/workflows/1/run"} Run Now
 
