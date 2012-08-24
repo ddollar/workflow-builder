@@ -9,7 +9,7 @@ class WorkflowsController < ApplicationController
 
   def new
     workflow = current_user.workflows.new
-    render :workflow, :locals => { :workflow => workflow }
+    render :edit, :locals => { :workflow => workflow }
   end
 
   def show
@@ -25,13 +25,7 @@ class WorkflowsController < ApplicationController
     workflow.steps << Step.new(:num => 6, :type => "heroku-run", :args => { :app => "wf-production", :command => "bundle exec rake db:migrate" })
     workflow.steps << Step.new(:num => 7, :type => "check-http", :args => { :url => "https://wf-production.herokuapp.com/check", :status => "200", :content => "ok" })
 
-    render :workflow, :locals => { :workflow => workflow }
-  end
-
-private
-
-  def workflows
-    @workflows ||= current_user.workflows
+    render :edit, :locals => { :workflow => workflow }
   end
 
 end
