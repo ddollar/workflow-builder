@@ -1,0 +1,9 @@
+.right
+  != status_image(step.status)
+.step.inline
+  .num= step.num
+  %label.emphasis= Step::TYPES[step.type]
+  = render "workflows/step_#{step.type}_show", :args => step.args
+
+- unless last
+  %hr

@@ -16,6 +16,9 @@
       %nav.navbar-inner
         .container
           = link_to "Workflow Builder", root_path, :class => "brand"
+          %ul.nav
+            %li
+              %a{:href => workflows_path} Workflows
           %ul.nav.pull-right
             %li.dropdown
               %a

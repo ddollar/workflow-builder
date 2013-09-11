@@ -1,0 +1,7 @@
+.step.inline
+  .num= step.num
+  %label.emphasis= Step::TYPES[step.type]
+  = render "step_#{step.type}_show", :args => step.args
+
+- unless last
+  %hr

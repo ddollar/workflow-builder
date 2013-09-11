@@ -15,11 +15,8 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: workflow_development
+  database: dnscheck_development
   pool: 5
-  username: workflow
-  password:
-  template: template0
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
@@ -42,17 +39,17 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: workflow_test
+  database: dnscheck_test
   pool: 5
-  username: workflow
+  username: dnscheck
   password:
   template: template0
 
 production:
   adapter: postgresql
   encoding: unicode
-  database: workflow_production
+  database: dnscheck_production
   pool: 5
-  username: workflow
+  username: dnscheck
   password:
   template: template0

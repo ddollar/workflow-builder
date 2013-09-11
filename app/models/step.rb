@@ -1,12 +1,14 @@
 class Step < ActiveRecord::Base
 
+  def self.inheritance_column; "notused"; end
+
   TYPES = {
     "heroku-release" => "Release",
     "heroku-run"     => "Run",
-    "check-http"     => "Check URL",
-    #"custom-script"  => "Custom"
+    "check-http"     => "Check URL"
   }
 
+  belongs_to :run
   belongs_to :workflow
 
   attr_accessible :args

@@ -2,7 +2,9 @@
   %h2
     Workflows
     .right
-      %a.btn.btn-success{:href => "/workflows/new"} New Workflow
+      %a.btn.btn-success{:href => new_workflow_path}
+        %i.icon-plus-sign
+        New Workflow
 
   %table.table
     %thead
@@ -11,14 +13,14 @@
         %th.text.nowrap Last Run
         %th.text.nowrap Duration
         %th.text.nowrap Status
-        %th
     %tbody
-      %tr.success
-        %td.text.max
-          %a{:href => "/workflows/1"} Workflow App to Production
-        %td.text.nowrap 10 minutes ago
-        %td.text.nowrap 2m45s
-        %td.text.nowrap Success
-        %td.nowrap
-          %a.btn.btn-primary{:href => "/workflows/1/run"} Run Now
-
+      - workflows.each do |workflow|
+        %tr
+          %td.text.max
+            %a.workflow-name{:href => workflow_path(workflow)}= workflow.name
+          %td.text.nowrap
+            %a{:href => workflow_run_path(workflow, workflow.latest_run)}= friendly_last_run(workflow)
+          %td.text.nowrap= friendly_duration(workflow)
+          %td.text.nowrap
+            .workflow-status.success
+              %i.fondu_015-check

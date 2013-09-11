@@ -1,33 +1,46 @@
-%form.form-horizontal
+= form_for(workflow) do |form|
 
   .well
     %h2
       Workflow
       .right
-        %a.btn.btn-danger{:href => root_path} Discard Changes
-        %button.btn.btn-success{:type => "submit"} Save Changes
+        - if workflow.id
+          %a.btn.btn-danger{:href => workflow_path(workflow)}
+            %i.icon-remove
+            Discard Changes
+        = form.button '<i class="icon-save"></i> Save Changes'.html_safe, :class => "btn btn-success"
     .inline
-      %label.emphasis Name
-      %input.input-xxlarge{:type => "text", :id => "name", :placeholder => "Workflow Name", :value => workflow.name}
+      = form.label :name, :class => "control-label"
+      = form.text_field :name, :placeholder => "Workflow Name", :class => "input-xlarge"
 
-  .well
-    %h3 When
-    .trigger.inline
-      %select{:id => "trigger-type", :class => "trigger-type-chooser"}
+  = form.fields_for(:trigger) do |trigger_form|
+    .well
+      %h3 When
+      .inline
+        = trigger_form.select :type, Trigger::TYPES.map { |k,v| [v,k] }, {}, :class => "chooser"
         - Trigger::TYPES.each do |type, label|
-          %option{:value => type, :selected => (workflow.trigger.try(:type) == type)}
-            != "<i class='#{Trigger::TYPE_ICONS[type]}'/>"
-            = label
-      - Trigger::TYPES.each do |type, label|
-        - args = (workflow.trigger.try(:type) == type) ? workflow.trigger.try(:args) : {}
-        .inline
-          .trigger-type{:class => "trigger-type-#{type}"}= render "trigger_#{type}", :args => args
+          - args = (workflow.trigger.try(:type) == type) ? workflow.trigger.try(:args) : {}
+          = trigger_form.fields_for(type) do |args_form|
+            .inline
+              .trigger-type{:class => "trigger-type-#{type}"}
+                = render "trigger_#{type}_edit", :args => args, :form => args_form
 
   .well
     %h3 Run These Steps
     - workflow.steps.each do |step|
-      = render "step", :step => step
-
-
+      = form.fields_for(:steps) do |steps_form|
+        = steps_form.fields_for(step.num.to_s, step) do |step_form|
+          = render "step_edit", :step => step, :form => step_form
     %button.btn.btn-success Add Step
 
+  = form.fields_for(:notification) do |notification_form|
+    .well
+      %h3 Notify
+      .inline
+        = notification_form.select :type, Notification::TYPES.map { |k,v| [v,k] }, {}, :class => "chooser"
+        - Notification::TYPES.each do |type, label|
+          - args = (workflow.notification.try(:type) == type) ? workflow.notification.try(:args) : {}
+          = notification_form.fields_for(type) do |args_form|
+            .inline
+              .notification-type{:class => "notification-type-#{type}"}
+                = render "notification_#{type}_edit", :args => args, :form => args_form

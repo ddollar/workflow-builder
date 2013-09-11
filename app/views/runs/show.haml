@@ -1,0 +1,30 @@
+.well
+  %h2
+    Run
+  .right
+    != status_image("running")
+  .inline
+    %label.emphasis= run.workflow.name
+    .text started
+    .text.arg
+      = time_ago_in_words(run.started_at)
+      ago
+
+.well
+  %h3 When
+  .right
+    != status_image("success")
+  .inline
+    %label.emphasis= Trigger::TYPES[run.trigger.type]
+    = render "workflows/trigger_#{run.trigger.type}_show", :args => run.trigger.args
+
+.well
+  %h3 Run These Steps
+  - run.steps.each do |step|
+    = render "step_show", :step => step, :last => (step.num == last_step_num(run))
+
+.well
+  %h3 Notify
+  .inline
+    %label.emphasis= Notification::TYPES[run.notification.type]
+    = render "workflows/notification_#{run.notification.type}_show", :args => run.notification.args

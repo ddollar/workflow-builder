@@ -1,0 +1,10 @@
+.step.inline
+  .num= step.num
+  = form.hidden_field :num
+  = form.select :type, Step::TYPES.map { |k,v| [v,k] }, {}, :class => "chooser step-chooser", "data-step" => step.num
+  - Step::TYPES.each do |type, label|
+    %div.step-type{:class => "step#{step.num}-type", :id => "step#{step.num}-type-#{type}"}
+      - args = (step.type == type) ? step.args : {}
+      = form.fields_for(type) do |args_form|
+        .inline= render "step_#{type}_edit", :args => args, :form => args_form
+%hr

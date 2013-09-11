@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   helper_method :ensure_authenticated!
 
+  before_filter :store_return_to
+
 private
 
   def current_user
@@ -15,6 +17,10 @@ private
 
   def ensure_authenticated!
     redirect_to "/sessions/new" unless current_user
+  end
+
+  def store_return_to
+    session[:return_to] = request.fullpath
   end
 
 end

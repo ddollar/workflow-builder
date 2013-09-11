@@ -1,0 +1,29 @@
+.well
+  %h2
+    Workflow
+    .right
+      %a.btn.btn-primary{:href => edit_workflow_path(workflow)}
+        %i.icon-edit
+        Edit
+      %a.btn.btn-success{:href => workflow_run_path(workflow, workflow.latest_run)}
+        %i.icon-cogs
+        Run Now
+  .inline
+    %label.emphasis= workflow.name
+
+.well
+  %h3 When
+  .inline
+    %label.emphasis= Trigger::TYPES[workflow.trigger.type]
+    = render "trigger_#{workflow.trigger.type}_show", :args => workflow.trigger.args
+
+.well
+  %h3 Run These Steps
+  - workflow.steps.each do |step|
+    = render "step_show", :step => step, :last => (step.num == last_step_num(workflow))
+
+.well
+  %h3 Notify
+  .inline
+    %label.emphasis= Notification::TYPES[workflow.notification.type]
+    = render "notification_#{workflow.notification.type}_show", :args => workflow.notification.args

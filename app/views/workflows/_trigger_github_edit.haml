@@ -1,0 +1,11 @@
+- if current_user.github
+
+  .text repository
+  = form.select :repository, github_repository_collection(current_user)
+  .text receives a push on branch
+  = form.text_field :branch, :value => args["branch"], :class => "input-medium"
+
+- else
+
+  %a.btn.btn-primary{:href => "/auth/github"}
+    Connect to Github

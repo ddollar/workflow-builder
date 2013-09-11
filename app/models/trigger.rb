@@ -1,5 +1,7 @@
 class Trigger < ActiveRecord::Base
 
+  def self.inheritance_column; "notused"; end
+
   TYPES = {
     "github" => "Github",
     "heroku" => "Heroku"
@@ -9,6 +11,9 @@ class Trigger < ActiveRecord::Base
     "github" => "icon-github",
     "heroku" => "icon-sign-blank"
   }
+
+  belongs_to :run
+  belongs_to :workflow
 
   attr_accessible :args
   attr_accessible :num

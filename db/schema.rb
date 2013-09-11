@@ -11,7 +11,51 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120823205317) do
+ActiveRecord::Schema.define(:version => 20121220212010) do
+
+  create_table "apps", :force => true do |t|
+    t.string   "name"
+    t.string   "state"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "documents", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.string   "uuid"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "domains", :force => true do |t|
+    t.string   "name"
+    t.integer  "app_id"
+    t.string   "state"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.text     "set_current"
+    t.text     "set_desired"
+  end
+
+  create_table "notifications", :force => true do |t|
+    t.integer  "num"
+    t.string   "type"
+    t.text     "args_raw"
+    t.integer  "workflow_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "run_id"
+  end
+
+  create_table "runs", :force => true do |t|
+    t.string   "state"
+    t.datetime "started_at"
+    t.datetime "finished_at"
+    t.integer  "workflow_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "steps", :force => true do |t|
     t.integer  "num"
@@ -20,6 +64,10 @@ ActiveRecord::Schema.define(:version => 20120823205317) do
     t.integer  "workflow_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "run_id"
+    t.datetime "started_at"
+    t.datetime "finished_at"
+    t.string   "status"
   end
 
   create_table "triggers", :force => true do |t|
@@ -29,12 +77,14 @@ ActiveRecord::Schema.define(:version => 20120823205317) do
     t.integer  "workflow_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "run_id"
   end
 
   create_table "users", :force => true do |t|
     t.string   "uid"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.string   "github_token"
   end
 
   create_table "workflows", :force => true do |t|
